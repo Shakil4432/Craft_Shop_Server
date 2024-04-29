@@ -45,6 +45,26 @@ async function run() {
         res.send(result);
     })
 
+    app.put('/JuteAndWoodenCraft/:id',async(req,res)=>{
+      const updateItem = req.body;
+      const id =req.params.id;
+      const filter = {_id: new ObjectId(id)};
+      const options = {upsert: true};
+      const item = {
+        $set:{
+          itemName:updateItem.itemName, 
+          price:updateItem.price, 
+          subCategoryName:updateItem.subCategoryName, 
+          rating:updateItem.rating, 
+          imgURL:updateItem.imgURL, 
+          processTime:updateItem.processTime, 
+          customize:updateItem.customize, 
+          stock:updateItem.stock,
+        }
+      }
+      const result = await craftCollection.updateOne(filter,item,options);
+      res.send(result);
+    })
     app.delete('/JuteAndWoodenCraft/:id',async(req,res)=>{
         const id = req.params.id;
         const query = {_id: new ObjectId(id)}
