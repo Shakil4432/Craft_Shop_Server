@@ -25,6 +25,7 @@ async function run() {
     await client.connect();
 
     const craftCollection = client.db('craftDB').collection('craft');
+    const categoryCollection = client.db('craftDB').collection('Category');
 
     app.get('/JuteAndWoodenCraft',async(req,res)=>{
         const cursor = craftCollection.find();
@@ -39,11 +40,19 @@ async function run() {
         res.send(result);
     })
 
+    app.get('/category',async(req,res)=>{
+      const cursor = categoryCollection.find();
+      const result = await cursor.toArray();
+      res.send(result);
+    })
+
     app.post('/JuteAndWoodenCraft',async(req,res)=>{
         const craft = req.body;
         const result = await craftCollection.insertOne(craft);
         res.send(result);
     })
+
+
 
     app.put('/JuteAndWoodenCraft/:id',async(req,res)=>{
       const updateItem = req.body;
