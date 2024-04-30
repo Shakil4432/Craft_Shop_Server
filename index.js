@@ -45,7 +45,7 @@ async function run() {
       const result = await cursor.toArray();
       res.send(result);
     })
-
+    
    
     app.post('/JuteAndWoodenCraft',async(req,res)=>{
         const craft = req.body;
